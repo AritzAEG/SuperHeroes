@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import BarraNavegacion from './components/Navegacion/BarraNavegacion';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Paginas/Home';
-import SuperHeroes from './components/Paginas/SuperHeroes';
-import CrearEditar from './components/Paginas/CrearEditar';
-import SignIn from './components/Paginas/SignIn';
+import Home from './components/Paginas/Home/Home';
+import SuperHeroes from './components/Paginas/SuperHeroes/SuperHeroes';
+import CrearEditar from './components/Paginas/CrearEditar/CrearEditar';
+import SignIn from './components/Paginas/SignIn/SignIn';
 
 function App() {
   return (
