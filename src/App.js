@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Paginas/Home';
 import SuperHeroes from './components/Paginas/SuperHeroes';
 import CrearEditar from './components/Paginas/CrearEditar';
+import SignIn from './components/Paginas/SignIn';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/superheroes' element={<SuperHeroes />} />
         <Route path='/crearyeditar' element={<CrearEditar />} />
+        <Route path='/signin' element={<SignIn />} />
       </Routes>
     </Router>
   );
