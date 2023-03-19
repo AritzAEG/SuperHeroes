@@ -2,6 +2,7 @@ import React from 'react';
 import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 import initializeAuthentication from './firebase.init';
 import { useState } from 'react';
+import './SignIn.css';
 
 initializeAuthentication();
 const provider = new GoogleAuthProvider();
@@ -22,7 +23,8 @@ const SignIn = () => {
             <button onClick={handleGoogleSignIn}>Google Sign In</button> <br />
             {user.email && (
                 <div>
-                    <h2>Welcome {user.displayName}</h2>
+                    <h2>Bienvenido</h2><br />
+                    <h2> {user.displayName}</h2>
                     <img src={user.photoURL} alt="" />
                 </div>
             )}
