@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora&display=swap');
 
 * {
-  font-family: 'Sora', sans-serif;
+  font-family: Comic Sans, Comic Sans MS, cursive;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  background-color: #e2e2e2;
+}
+
+h1 {
+  text-align: center;
+  padding-top: 4%;
+  font-size: 50px;
 }

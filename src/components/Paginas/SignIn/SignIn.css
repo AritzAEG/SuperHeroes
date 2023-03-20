@@ -1,4 +1,22 @@
-img {
-    padding-top: 5%;
-    padding-left: 47%;
+.Boton-Google {
+    margin-top: 4%;
+    margin-left: 47%;
+}
+
+.Mensaje-Bienvenida {
+    margin-top: 4%;
+    text-align: center;
+}
+
+.Nombre-Usuario {
+    text-align: center;
+    margin-top: 2%;
+    text-transform: capitalize;
+}
+
+.Foto-Usuario {
+    margin-top: 4%;
+    margin-left: 46%;
+    height: 150px;
+    width: 150px;
 }

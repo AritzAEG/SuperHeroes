@@ -1,11 +1,11 @@
-h1 {
+.Descripcion {
     text-align: center;
     padding-top: 4%;
-    padding-bottom: 4%;
-    font-size: 50px;
 }
 
-h2 {
-    text-align: center;
-    padding-top: 1%;
+.imagen-principal {
+   width: 690px;
+   height: 500px;
+   margin-left: 32%;
+   margin-top: 2%;
 }

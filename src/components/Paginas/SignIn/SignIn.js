@@ -20,12 +20,13 @@ const SignIn = () => {
 
     return (   
         <div>
-            <button onClick={handleGoogleSignIn}>Google Sign In</button> <br />
+            <h1>Log In</h1>
+            <button onClick={handleGoogleSignIn} className='Boton-Google'>Google Log In</button>
             {user.email && (
                 <div>
-                    <h2>Bienvenido</h2><br />
-                    <h2> {user.displayName}</h2>
-                    <img src={user.photoURL} alt="" />
+                    <h2 className='Mensaje-Bienvenida'>Bienvenido</h2>
+                    <h2 className='Nombre-Usuario'> {user.displayName}</h2>
+                    <img src={user.photoURL} alt="" className='Foto-Usuario'/>
                 </div>
             )}
         </div>

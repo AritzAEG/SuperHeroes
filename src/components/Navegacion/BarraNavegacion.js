@@ -8,12 +8,14 @@ import {
   NavBtnLink
 } from './Elementos';
 
+import './barranavegacion.css'
+
 const BarraNavegacion = () => {
   return (
     <>
       <Nav>
         <NavLink to="/home">
-          <img src={require('../Imagenes/Logo.png')} alt='logo' />
+          <img src={require('../Imagenes/Logo.png')} alt='logo' className='imagen-logo'/>
         </NavLink>
         <Bars />
         <NavMenu>

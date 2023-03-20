@@ -11,6 +11,8 @@ import {
     ModalFooter
 } from 'reactstrap';
 
+import './CrearEditar.css';
+
   function SignIn() {
 
     const dataPersonas = [
@@ -76,9 +78,9 @@ import {
     }
   
     return (
-      <div className="App">
+      <div>
         <header>
-          <h2>Lista de Super Heroes</h2>
+          <h1>Lista de Super Heroes</h1>
         </header>
         <br />
         <button className="btn btn-success" onClick={()=>abrirModalInsertar()}>Insertar</button>
@@ -219,9 +221,10 @@ import {
             </div>
           </ModalBody>
           <ModalFooter>
-            <button className="btn btn-primary"
+            <button className="btn-primary"
             onClick={()=>insertar()}>
               Insertar
+
             </button>
             <button
               className="btn btn-danger"
