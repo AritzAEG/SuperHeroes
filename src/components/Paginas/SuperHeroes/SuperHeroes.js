@@ -2,7 +2,7 @@ import React from 'react';
 
 const SuperHeroes = () => {
     return (
-        <h1>SuperHeroes</h1>
+        <h1>Super Héroes</h1>
     )
 }
 
