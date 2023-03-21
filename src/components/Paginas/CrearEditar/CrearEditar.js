@@ -123,7 +123,7 @@ class SignIn extends React.Component {
                   <td className="Tabla3">{dato.id}</td>
                   <td className="Tabla3">{dato.nombre}</td>
                   <td className="Tabla3">{dato.descripcion}</td>
-                  <td>
+                  <td className="Tabla3">
                     <Button
                       color="primary"
                       onClick={() => this.mostrarModalActualizar(dato)}

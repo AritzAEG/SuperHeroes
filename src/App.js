@@ -6,6 +6,7 @@ import Home from './components/Paginas/Home/Home';
 import SuperHeroes from './components/Paginas/SuperHeroes/SuperHeroes';
 import CrearEditar from './components/Paginas/CrearEditar/CrearEditar';
 import SignIn from './components/Paginas/SignIn/SignIn';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
