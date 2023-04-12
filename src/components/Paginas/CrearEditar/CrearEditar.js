@@ -1,268 +1,138 @@
-import React from "react";
-import './CrearEditar.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Table,
-  Button,
-  Container,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  ModalFooter,
-} from "reactstrap";
+import React, {useEffect, useState} from "react";
+import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
+import {Edit, Delete} from '@material-ui/icons';
+import {makeStyles} from '@material-ui/core/styles';
 
-const dataPersonas = [
-  { id: 1, nombre: "Batman", descripcion: "Batman es la identidad secreta de Bruce Wayne, un empresario multimillonario, galán y filántropo." },
-  { id: 2, nombre: "Superman", descripcion: "Superman es un hombre alto, musculoso, hombre de raza blanca con ojos azules y pelo negro corto con un rizo." },
-  { id: 3, nombre: "Wonder Woman", descripcion: "Wonder Woman es una princesa guerrera de las Amazonas, pueblo ficticio basado en el de las amazonas de la mitología griega." },
-  { id: 4, nombre: "Iron Man", descripcion: "Iron Man es un multimillonario magnate empresarial y filántropo estadounidense, playboy e ingenioso científico, que sufrió una grave lesión en el pecho durante un secuestro en el Medio Oriente." },
-];
+const url = 'https://superheroes.fly.dev/superHeroes/workouts';
 
-class SignIn extends React.Component {
-  state = {
-    data: dataPersonas,
-    modalActualizar: false,
-    modalInsertar: false,
-    form: {
-      id: "",
-      nombre: "",
-      descripcion: "",
-    },
-  };
+//Estilos de el CRUD
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  iconos:{
+    cursor: 'pointer',
+  },
+  inputMaterial:{
+    width: '100%'
+  }
+}));
 
-  mostrarModalActualizar = (dato) => {
-    this.setState({
-      form: dato,
-      modalActualizar: true,
-    });
-  };
+function CrearEditar() {
+  //Aplicar Estilos
+  const styles = useStyles();
 
-  cerrarModalActualizar = () => {
-    this.setState({ modalActualizar: false });
-  };
+  //Fetch datos del servidor
+  const [data, setData] = useState([])
+  const [modalInsertar, setModalInsertar] = useState(false);
 
-  mostrarModalInsertar = () => {
-    this.setState({
-      modalInsertar: true,
-    });
-  };
+  const [consolaSeleccionada, setConsolaSeleccionada] = useState({
+    id: '',
+    nombre: '',
+    descripcion: '',
+    img: '',
+  })
 
-  cerrarModalInsertar = () => {
-    this.setState({ modalInsertar: false });
-  };
-
-  editar = (dato) => {
-    var contador = 0;
-    var arreglo = this.state.data;
-    arreglo.map((registro) => {
-      if (dato.id == registro.id) {
-        arreglo[contador].nombre = dato.nombre;
-        arreglo[contador].descripcion = dato.descripcion;
-      }
-      contador++;
-    });
-    this.setState({ data: arreglo, modalActualizar: false });
-  };
-
-  eliminar = (dato) => {
-    var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.id);
-    if (opcion == true) {
-      var contador = 0;
-      var arreglo = this.state.data;
-      arreglo.map((registro) => {
-        if (dato.id == registro.id) {
-          arreglo.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: arreglo, modalActualizar: false });
-    }
-  };
-
-  insertar= ()=>{
-    var valorNuevo= {...this.state.form};
-    valorNuevo.id=this.state.data.length+1;
-    var lista= this.state.data;
-    lista.push(valorNuevo);
-    this.setState({ modalInsertar: false, data: lista });
+  //Almacenar en el estado lo que se escriba
+  const handleChange = e => {
+    const {name, value} = e.target;
+    setConsolaSeleccionada(prevState => ({
+      ...prevState,
+      [name]: value
+    }))
+    console.log(consolaSeleccionada)
   }
 
-  handleChange = (e) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [e.target.name]: e.target.value,
-      },
-    });
-  };
+  const peticionPost = async () => {
+    await fetch(url, consolaSeleccionada, {
+      method: "POST",
+    })
+    .then(response => {
+      setData(data.concat(response.data))
+      abrirCerrarModalInsertar();
+    })
+  }
 
-  render() {
-    
+  const abrirCerrarModalInsertar = () => {
+    setModalInsertar(!modalInsertar);
+  }
+
+  const bodyInsertar = (
+    <div className={styles.modal}>
+      <h3>Agregar Nuevo SuperHéroe</h3>
+      <TextField name="id" className={styles.inputMaterial} label="ID" onChange={handleChange}/>
+      <br />
+      <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange}/>
+      <br />
+      <TextField name="descripcion" className={styles.inputMaterial} label="Descripción" onChange={handleChange}/>
+      <br />
+      <TextField name="img" className={styles.inputMaterial} label="Imagen" onChange={handleChange}/>
+      <br /><br />
+      <div align="right">
+        <Button color="primary" onClick={peticionPost}>Insertar</Button>
+        <Button onClick={abrirCerrarModalInsertar}>Cancelar</Button>
+      </div>
+    </div>
+  )
+
+    useEffect(() => {
+        fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+            setData(data.data)
+        })
+    })
+
     return (
-      <>
-        <Container>
+      <div>
+        <h1>Lista SuperHéroes</h1>
         <br />
-        <h1>Crear Y Editar Super Heroes</h1>
-          <Button color="success" onClick={()=>this.mostrarModalInsertar()} className='Boton-Crear'>Crear</Button>
-          <br />
-          <br />
-          <Table className="Tabla">
-            <thead>
-              <tr className="Tabla2">
-                <th className="Tabla3">ID</th>
-                <th className="Tabla3">Super Héroe</th>
-                <th className="Tabla3">Descripcion</th>
-                <th className="Tabla3">Acción</th>
-              </tr>
-            </thead>
+        <Button onClick={abrirCerrarModalInsertar}>Insertar</Button>
+        <br /><br />
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Nombre</TableCell>
+                <TableCell>Descripción</TableCell>
+                <TableCell>Imagen</TableCell>
+              </TableRow>
+            </TableHead>
 
-            <tbody>
-              {this.state.data.map((dato) => (
-                <tr key={dato.id}>
-                  <td className="Tabla3">{dato.id}</td>
-                  <td className="Tabla3">{dato.nombre}</td>
-                  <td className="Tabla3">{dato.descripcion}</td>
-                  <td className="Tabla3">
-                    <Button
-                      color="primary"
-                      onClick={() => this.mostrarModalActualizar(dato)}
-                    >
-                      Editar
-                    </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
-                  </td>
-                </tr>
+            <TableBody>
+              {data.map((superheroe) => (
+                <TableRow>
+                  <TableCell>{superheroe.id}</TableCell>
+                  <TableCell>{superheroe.nombre}</TableCell>
+                  <TableCell>{superheroe.descripcion}</TableCell>
+                  <TableCell>{superheroe.img}</TableCell>
+                  <TableCell>
+                    <Edit />
+                    &nbsp;&nbsp;&nbsp;
+                    <Delete />
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
+            </TableBody>
           </Table>
-        </Container>
+        </TableContainer>
 
-        <Modal isOpen={this.state.modalActualizar}>
-          <ModalHeader>
-           <div><h3>Editar Registro</h3></div>
-          </ModalHeader>
-
-          <ModalBody>
-            <FormGroup>
-              <label>
-               Id:
-              </label>
-            
-              <input
-                className="form-control"
-                readOnly
-                type="text"
-                value={this.state.form.id}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                nombre: 
-              </label>
-              <input
-                className="form-control"
-                name="nombre"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.nombre}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                descripcion: 
-              </label>
-              <input
-                className="form-control"
-                name="descripcion"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.descripcion}
-              />
-            </FormGroup>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={() => this.editar(this.state.form)}
-            >
-              Editar
-            </Button>
-            <Button
-              color="danger"
-              onClick={() => this.cerrarModalActualizar()}
-            >
-              Cancelar
-            </Button>
-          </ModalFooter>
+        <Modal
+        open={modalInsertar}
+        onClose={abrirCerrarModalInsertar}>
+        {bodyInsertar}
         </Modal>
-
-
-
-        <Modal isOpen={this.state.modalInsertar}>
-          <ModalHeader>
-           <div><h3>Insertar nombre</h3></div>
-          </ModalHeader>
-
-          <ModalBody>
-            <FormGroup>
-              <label>
-                Id: 
-              </label>
-              
-              <input
-                className="form-control"
-                readOnly
-                type="text"
-                value={this.state.data.length+1}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                nombre: 
-              </label>
-              <input
-                className="form-control"
-                name="nombre"
-                type="text"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                descripcion: 
-              </label>
-              <input
-                className="form-control"
-                name="descripcion"
-                type="text"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={() => this.insertar()}
-            >
-              Insertar
-            </Button>
-            <Button
-              className="btn btn-danger"
-              onClick={() => this.cerrarModalInsertar()}
-            >
-              Cancelar
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </>
-    );
-  }
+      </div>
+    )
 }
-export default SignIn;
+
+export default CrearEditar;
