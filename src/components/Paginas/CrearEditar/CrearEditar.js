@@ -1,138 +1,185 @@
 import React, {useEffect, useState} from "react";
-import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
-import {Edit, Delete} from '@material-ui/icons';
-import {makeStyles} from '@material-ui/core/styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Modal, ModalBody, ModalHeader, ModalFooter} from 'reactstrap'
 
-const url = 'https://superheroes.fly.dev/superHeroes/workouts';
+function CrearEditar () {
 
-//Estilos de el CRUD
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
-  },
-  iconos:{
-    cursor: 'pointer',
-  },
-  inputMaterial:{
-    width: '100%'
-  }
-}));
+  const [data, setData] = useState([]);
+  const [modalEditar, setModalEditar] = useState(false);
+  const [modalEliminar, setModalEliminar] = useState(false);
+  //const [modalInsertar, setModalInsertar] = useState(false);
 
-function CrearEditar() {
-  //Aplicar Estilos
-  const styles = useStyles();
-
-  //Fetch datos del servidor
-  const [data, setData] = useState([])
-  const [modalInsertar, setModalInsertar] = useState(false);
-
-  const [consolaSeleccionada, setConsolaSeleccionada] = useState({
+  const [superheroeSeleccionado, setSuperheroeSeleccionado] = useState({
     id: '',
     nombre: '',
     descripcion: '',
     img: '',
-  })
+  });
 
-  //Almacenar en el estado lo que se escriba
+  const seleccionarSuperheroe=(superheroe, caso) => {
+    setSuperheroeSeleccionado(superheroe);
+    (caso==='Editar')?setModalEditar(true):setModalEliminar(true)
+  }
+
+  //Asignar al estado lo que estoy escribiendo
   const handleChange = e => {
     const {name, value} = e.target;
-    setConsolaSeleccionada(prevState => ({
+    setSuperheroeSeleccionado((prevState) =>({
       ...prevState,
       [name]: value
-    }))
-    console.log(consolaSeleccionada)
+    }));
   }
 
-  const peticionPost = async () => {
-    await fetch(url, consolaSeleccionada, {
-      method: "POST",
+  const editar = () => {
+    var dataNueva = data;
+    dataNueva.map((superheroe) => {
+      if (superheroe.id===superheroeSeleccionado.id)
+      {
+        superheroe.nombre = superheroeSeleccionado.nombre;
+        superheroe.descripcion = superheroeSeleccionado.descripcion;
+        superheroe.img = superheroeSeleccionado.img;
+      }
     })
-    .then(response => {
-      setData(data.concat(response.data))
-      abrirCerrarModalInsertar();
-    })
+    setData(dataNueva);
+    setModalEditar(false);
   }
 
-  const abrirCerrarModalInsertar = () => {
-    setModalInsertar(!modalInsertar);
+  const eliminar = () => {
+    setData(data.filter(superheroe => superheroe.id!==superheroeSeleccionado.id));
+    setModalEliminar(false);
+  }
+/*
+  const abirModalInsertar = () => {
+    setSuperheroeSeleccionado(null);
+    setModalInsertar(true);
   }
 
-  const bodyInsertar = (
-    <div className={styles.modal}>
-      <h3>Agregar Nuevo SuperHéroe</h3>
-      <TextField name="id" className={styles.inputMaterial} label="ID" onChange={handleChange}/>
-      <br />
-      <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange}/>
-      <br />
-      <TextField name="descripcion" className={styles.inputMaterial} label="Descripción" onChange={handleChange}/>
-      <br />
-      <TextField name="img" className={styles.inputMaterial} label="Imagen" onChange={handleChange}/>
-      <br /><br />
-      <div align="right">
-        <Button color="primary" onClick={peticionPost}>Insertar</Button>
-        <Button onClick={abrirCerrarModalInsertar}>Cancelar</Button>
-      </div>
-    </div>
-  )
-
+  const insertar = () => {
+    let valorInsertar = superheroeSeleccionado;
+    valorInsertar.id = data[data.length-1].id + 1;
+    let dataNueva = data;
+    dataNueva.push(valorInsertar);
+    setData(dataNueva);
+    setModalInsertar(false);
+  }
+*/
     useEffect(() => {
-        fetch(url)
+        fetch("https://superheroes.fly.dev/superHeroes/workouts")
         .then((res) => res.json())
         .then((data) => {
             setData(data.data)
         })
     })
 
-    return (
-      <div>
-        <h1>Lista SuperHéroes</h1>
-        <br />
-        <Button onClick={abrirCerrarModalInsertar}>Insertar</Button>
-        <br /><br />
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Descripción</TableCell>
-                <TableCell>Imagen</TableCell>
-              </TableRow>
-            </TableHead>
+  return (
+    <div>
+      <h1>SuperHéroes</h1> <br /><br /><br />
+      <button className="btn btn-access">Insertar</button> <br /><br /><br />
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        {data.map((superheroe) => (
+          <tr>
+            <td>{superheroe.id}</td>
+            <td>{superheroe.nombre}</td>
+            <td>{superheroe.descripcion}</td>
+            <td>{superheroe.img}</td>
+            <td><button className="btn btn-primary" onClick={() => seleccionarSuperheroe(superheroe, 'Editar')}>Editar</button> {"  "}
+            <button className="btn btn-danger" onClick={() => seleccionarSuperheroe(superheroe, 'Eliminar')}>Eliminar</button></td>
+          </tr>
+        ))}
+        </tbody>
+      </table>
 
-            <TableBody>
-              {data.map((superheroe) => (
-                <TableRow>
-                  <TableCell>{superheroe.id}</TableCell>
-                  <TableCell>{superheroe.nombre}</TableCell>
-                  <TableCell>{superheroe.descripcion}</TableCell>
-                  <TableCell>{superheroe.img}</TableCell>
-                  <TableCell>
-                    <Edit />
-                    &nbsp;&nbsp;&nbsp;
-                    <Delete />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <Modal isOpen={modalEditar}>
+        <ModalHeader>
+          <div>
+            <h3>Editar SuperHeroe</h3>
+          </div>
+        </ModalHeader>
+        <ModalBody>
+          <div className="form-group">
+            <label>ID</label>
+            <input
+              className="form-control"
+              readOnly
+              type="text"
+              name="id"
+              value={superheroeSeleccionado && superheroeSeleccionado.id}
+            />
 
-        <Modal
-        open={modalInsertar}
-        onClose={abrirCerrarModalInsertar}>
-        {bodyInsertar}
-        </Modal>
-      </div>
-    )
+            <br />
+
+            <label>Nombre</label>
+            <input
+              className="form-control"
+              type="text"
+              name="nombre"
+              value={superheroeSeleccionado && superheroeSeleccionado.nombre}
+              onChange={handleChange}
+            />
+
+            <br />
+
+            <label>Descripción</label>
+            <input
+              className="form-control"
+              type="text"
+              name="descripcion"
+              value={superheroeSeleccionado && superheroeSeleccionado.descripcion}
+              onChange={handleChange}
+            />
+
+            <br />
+
+            <label>Imagen</label>
+            <input
+              className="form-control"
+              type="text"
+              name="imagen"
+              value={superheroeSeleccionado && superheroeSeleccionado.img}
+              onChange={handleChange}
+            />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <button className="btn btn-primary" onClick={() => editar()}>
+            Actualizar
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => setModalEditar(false)}
+          >
+            Cancelar
+          </button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen = {modalEliminar}>
+        <ModalBody>
+          ¿Estas Seguro que deseas eliminar el superheroe {superheroeSeleccionado && superheroeSeleccionado.nombre}?
+        </ModalBody>
+        <ModalFooter>
+          <button className="btn btn-danger" onClick={()=>eliminar()}>
+            Si
+          </button>
+          <button
+          className="btn btn-secondary"
+          onClick={() => setModalEliminar(false)}
+          >
+            No
+          </button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  )
 }
-
 export default CrearEditar;
