@@ -1,16 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import SuperHeroe from './SuperHeroe';
-import batman from '../../Imagenes/batman.png'
-import superman from '../../Imagenes/superman.png'
-import superwoman from '../../Imagenes/superwoman.png'
-import ironman from '../../Imagenes/ironman.png'
 
 const SuperHeroes = () => {
 
     const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch("https://superheroes.fly.dev/superHeroes/workouts")
+        fetch("https://superheroes.fly.dev/superHeroes/heroes")
         .then((res) => res.json())
         .then((data) => {
             setData(data.data)
