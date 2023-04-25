@@ -16,7 +16,7 @@ const SuperHeroes = () => {
     return (
         <div>
             <h1>Super Héroes</h1>
-                <div className='container justifi-content-center bg-info'>
+                <div className='container justifi-content-center bg-info bg-white'>
                     <div className='row'>
                     {
                         data.map((superheroe) => (

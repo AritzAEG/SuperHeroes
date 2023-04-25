@@ -7,7 +7,7 @@ const ListarHeroes = () => {
     const navigate = useNavigate();
 
     const loadEditar = (_id) => {
-        
+
     }
 
     const loadEliminar = (_id) => {
@@ -25,7 +25,7 @@ const ListarHeroes = () => {
         return res.json();
         }).then ((resp) => {
         setData(resp.data)
-        console.log(data)
+        console.log("data")
         }).catch((err) => {
         console.log(err.message)
         })
@@ -37,9 +37,9 @@ const ListarHeroes = () => {
             <div className="card">
                 <div className="card-title">
                 </div>
-                <div className="card-body">
-                    <div>
-                        <Link to="crearyeditar/crear" className="btn btn-success">Crear Nuevo (+)</Link>      
+                <div className="card-body text-center">
+                    <div className="mb-4 mt-2">
+                        <Link to="crear" className="btn btn-success col-2">Crear Nuevo (+)</Link>      
                     </div>
                     <table className="table table-bordered">
                         <thead className="bg-dark text-white">
@@ -58,7 +58,7 @@ const ListarHeroes = () => {
                                         <td>{superHeroe._id}</td>
                                         <td>{superHeroe.nombre}</td>
                                         <td>{superHeroe.descripcion}</td>
-                                        <td>{superHeroe.imagen}</td>
+                                        <td>{superHeroe.img}</td>
                                         <td><a onClick={() => {loadEditar(superHeroe._id)}} className="btn btn-success">Editar</a>
                                             <a onClick={() => {loadEliminar(superHeroe._id)}} className="btn btn-danger">Eliminar</a>
                                             <a onClick={() => {loadDetalles(superHeroe._id)}} className="btn btn-success">Detalles</a>

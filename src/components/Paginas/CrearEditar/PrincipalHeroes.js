@@ -11,8 +11,8 @@ function PrincipalHeroes () {
     <div className="PrincipalHeroes">
       <h1>Listado SuperHéroes</h1>
         <Routes> 
-          <Route path="*" element={<CrearHeroes />}></Route>
-          <Route path="/crear" element={<CrearHeroes />}></Route>
+          <Route path="/" element={<ListarHeroes />}></Route>
+          <Route path="crear" element={<CrearHeroes />}></Route>
           <Route path="/crearyeditar/editar" element={<EditarHeroes />}></Route>
           <Route path="/crearyeditar/detalles" element={<DetallesHeroes />}></Route>
         </Routes>
