@@ -25,7 +25,7 @@ const BarraNavegacion = () => {
           <NavLink to="/superheroes" activeStyle>
             SUPER HÉROES
           </NavLink>
-          <NavLink to="/crearyeditar" activeStyle>
+          <NavLink to="/editarheroes" activeStyle>
             CREAR/EDITAR
           </NavLink>
         </NavMenu>

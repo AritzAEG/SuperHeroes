@@ -39,7 +39,7 @@ const ListarHeroes = () => {
                 </div>
                 <div className="card-body text-center">
                     <div className="mb-4 mt-2">
-                        <Link to="crear" className="btn btn-success col-2">Crear Nuevo (+)</Link>      
+                        <Link to="/editarheroes/crear" className="btn btn-success col-2">Crear Nuevo (+)</Link>      
                     </div>
                     <table className="table table-bordered">
                         <thead className="bg-dark text-white">
