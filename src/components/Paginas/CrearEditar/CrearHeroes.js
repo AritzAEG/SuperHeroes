@@ -5,20 +5,21 @@ const CrearHeroes = () => {
 
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
-    const [imagen, setImagen] = useState("");
+    const [img, setImg] = useState("");
     const [validation, setValidation] = useState(false);
     const navigate=useNavigate();
 
     const handlesubmit = (e) => {
         e.preventDefault();
-        console.log(descripcion)
-        const empdata={nombre,descripcion,imagen};
+        console.log(img)
+        const empdata={nombre,descripcion,img};
         fetch("https://superheroes.fly.dev/superHeroes/heroes", {
             method: "POST",
             headers: {"content-type": "application/json"},
             body:JSON.stringify(empdata)
         }).then((res)=>{
             console.log(empdata)
+            navigate("/editarheroes/")
         }).catch((err)=>{
             console.log(err.message)
         })
@@ -54,14 +55,14 @@ const CrearHeroes = () => {
                                     <div className="col-lg-12">
                                         <div className="form-groud">
                                             <label>Imagen</label>
-                                            <input value={imagen} onMouseDown={e=>setValidation(true)} onChange={e=>setImagen(e.target.value)} className="form-control"></input>
-                                            {imagen.length == 0 && validation && <span className="text-danger">Introduce la URL de la imagen</span>}
+                                            <input value={img} onMouseDown={e=>setValidation(true)} onChange={e=>setImg(e.target.value)} className="form-control"></input>
+                                            {img.length == 0 && validation && <span className="text-danger">Introduce la URL de la imagen</span>}
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
                                         <div className="form-groud">
                                             <button className="btn btn-success" type="submit">Guardar</button>
-                                            <Link className="btn btn-danger">Cancelar</Link>
+                                            <Link to="/editarheroes/" className="btn btn-danger">Cancelar</Link>
                                         </div>
                                     </div>
 

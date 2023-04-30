@@ -7,15 +7,23 @@ const ListarHeroes = () => {
     const navigate = useNavigate();
 
     const loadEditar = (_id) => {
-
+        navigate("/editarheroes/editar/"+ _id);
     }
 
     const loadEliminar = (_id) => {
-        
+        if(window.confirm("¿Seguro que quieres eliminar el SuperHéroe?")){
+            fetch("https://superheroes.fly.dev/superHeroes/heroes/"+ _id, {
+            method: "DELETE",
+        }).then((res)=>{
+            window.location.reload()
+        }).catch((err)=>{
+            console.log(err.message)
+        })
+        }
     }
 
     const loadDetalles = (_id) => {
-        
+        navigate("/editarheroes/detalles/"+ _id);
     }
 
 
@@ -25,7 +33,6 @@ const ListarHeroes = () => {
         return res.json();
         }).then ((resp) => {
         setData(resp.data)
-        console.log("data")
         }).catch((err) => {
         console.log(err.message)
         })
@@ -39,7 +46,7 @@ const ListarHeroes = () => {
                 </div>
                 <div className="card-body text-center">
                     <div className="mb-4 mt-2">
-                        <Link to="/editarheroes/crear" className="btn btn-success col-2">Crear Nuevo (+)</Link>      
+                        <Link to="/editarheroes/crearheroe" className="btn btn-success col-2">Crear Nuevo (+)</Link>      
                     </div>
                     <table className="table table-bordered">
                         <thead className="bg-dark text-white">

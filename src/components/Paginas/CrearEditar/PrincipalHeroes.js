@@ -12,9 +12,9 @@ function PrincipalHeroes () {
       <h1>Listado SuperHéroes</h1>
         <Routes> 
           <Route path="/" element={<ListarHeroes />}></Route>
-          <Route path="/editarheroes/crear" element={<CrearHeroes />}></Route>
-          <Route path="/crearyeditar/editar" element={<EditarHeroes />}></Route>
-          <Route path="/crearyeditar/detalles" element={<DetallesHeroes />}></Route>
+          <Route path="/crearheroe" element={<CrearHeroes />}></Route>
+          <Route path="/editar/:heroeid" element={<EditarHeroes />}></Route>
+          <Route path="/detalles/:heroeid" element={<DetallesHeroes />}></Route>
         </Routes>
     </div>
   )
