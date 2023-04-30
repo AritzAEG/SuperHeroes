@@ -40,7 +40,7 @@ const ListarHeroes = () => {
 
 
     return (
-        <div className="container">
+        <div className="">
             <div className="card">
                 <div className="card-title">
                 </div>

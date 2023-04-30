@@ -9,7 +9,7 @@ import DetallesHeroes from "./DetallesHeroes";
 function PrincipalHeroes () {
   return(
     <div className="PrincipalHeroes">
-      <h1>Listado SuperHéroes</h1>
+      <h1>Edicion de los SuperHéroes</h1>
         <Routes> 
           <Route path="/" element={<ListarHeroes />}></Route>
           <Route path="/crearheroe" element={<CrearHeroes />}></Route>
