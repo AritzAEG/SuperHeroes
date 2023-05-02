@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import SuperHeroe from "../SuperHeroes/SuperHeroe";
 import { Link, useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './ListarHeroes.css';
 
 const ListarHeroes = () => {
     const [data,setData] = useState(null);
@@ -65,7 +67,7 @@ const ListarHeroes = () => {
                                         <td>{superHeroe._id}</td>
                                         <td>{superHeroe.nombre}</td>
                                         <td>{superHeroe.descripcion}</td>
-                                        <td>{superHeroe.img}</td>
+                                        <td><img className="imagenes" src={superHeroe.img}></img></td>
                                         <td><a onClick={() => {loadEditar(superHeroe._id)}} className="btn btn-success">Editar</a>
                                             <a onClick={() => {loadEliminar(superHeroe._id)}} className="btn btn-danger">Eliminar</a>
                                             <a onClick={() => {loadDetalles(superHeroe._id)}} className="btn btn-success">Detalles</a>
