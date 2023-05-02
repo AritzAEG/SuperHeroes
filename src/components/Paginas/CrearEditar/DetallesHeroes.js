@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useParams, Link } from "react-router-dom";
 
 const DetallesHeroes = () => {
     const {heroeid} = useParams();
@@ -22,15 +23,15 @@ const DetallesHeroes = () => {
         <div>
             <div className="card" style={{"textAlign":"left"}}>
                 <div className="card-title">
-                    <h2>Detalles SuperHeroe</h2>
+                    <h2 class="text-center">Detalles SuperHeroe</h2>
                 </div>
             
             <div className="card-body"></div>
            {data &&
                 <div>
-                    <h4>ID SuperHéroe: ({data._id})</h4>
-                    <h5>Nombre SuperHéroe: {data.nombre}</h5>
-                    <h5>Descripcion del SuperHéroe: {data.descripcion}</h5>
+                    <h2 class="text-center">{data.nombre}</h2>
+                    <img class="w-25 p-3 rounded mx-auto d-block" src={data.img}></img>
+                    <h5 class="text-center">{data.descripcion}</h5>
                     <Link className="btn btn-danger" to="/editarheroes/">Atras</Link>
                 </div>
            }
