@@ -33,7 +33,7 @@ const EditarHeroes = () => {
         console.log(img)
         const empdata={nombre,descripcion,img};
         fetch("https://superheroes.fly.dev/superHeroes/heroes/"+ heroeid, {
-            method: "PUT",
+            method: "PATCH",
             headers: {"content-type": "application/json"},
             body:JSON.stringify(empdata)
         }).then((res)=>{
