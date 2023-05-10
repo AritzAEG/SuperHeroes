@@ -7,6 +7,7 @@ import SuperHeroes from './components/Paginas/SuperHeroes/SuperHeroes';
 import SignIn from './components/Paginas/SignIn/SignIn';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PrincipalHeroes from './components/Paginas/CrearEditar/PrincipalHeroes';
+import Combate from './components/Paginas/Combate/Combate';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/superheroes' element={<SuperHeroes />} />
         <Route path='/editarheroes/*' element={<PrincipalHeroes />} />
+        <Route path='/combate' element={<Combate />} />
         <Route path='/signin' element={<SignIn />} />
       </Routes> 
     </Router>

@@ -28,6 +28,9 @@ const BarraNavegacion = () => {
           <NavLink to="/editarheroes" activeStyle>
             CREAR/EDITAR
           </NavLink>
+          <NavLink to="/combate" activeStyle>
+            COMBATE
+          </NavLink>
         </NavMenu>
         <NavBtn>
           <NavBtnLink to="/signin">SIGN IN</NavBtnLink>
