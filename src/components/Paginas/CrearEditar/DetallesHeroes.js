@@ -31,7 +31,13 @@ const DetallesHeroes = () => {
                 <div>
                     <h2 class="text-center">{data.nombre}</h2>
                     <img class="w-25 p-3 rounded mx-auto d-block" src={data.img}></img>
-                    <h5 class="text-center">{data.descripcion}</h5>
+                    <h5 class="text-center">{data.descripcion}</h5><br />
+                    <h5 class="text-center"><p>Inteligencia: {data.int}</p></h5>
+                    <h5 class="text-center"><p>Fuerza: {data.str}</p></h5>
+                    <h5 class="text-center"><p>Durabilidad: {data.dur}</p></h5>
+                    <h5 class="text-center"><p>Velocidad: {data.spe}</p></h5>
+                    <h5 class="text-center"><p>Poder: {data.pow}</p></h5>
+                    <h5 class="text-center"><p>Combate: {data.com}</p></h5>
                     <Link className="btn btn-danger" to="/editarheroes/">Atras</Link>
                 </div>
            }

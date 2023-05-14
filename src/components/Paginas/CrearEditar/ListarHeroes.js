@@ -66,7 +66,7 @@ const ListarHeroes = () => {
                                     <tr key={superHeroe._id}>
                                         <td>{superHeroe._id}</td>
                                         <td>{superHeroe.nombre}</td>
-                                        <td>{superHeroe.descripcion}</td>
+                                        <td>{superHeroe.descripcion} <br /> <p>Inteligencia: {superHeroe.int}</p> <p>Fuerza: {superHeroe.str}</p> <p>Durabilidad: {superHeroe.dur}</p> <p>Velocidad: {superHeroe.spe}</p> <p>Poder: {superHeroe.pow}</p> <p>Combate: {superHeroe.com}</p></td>
                                         <td><img className="imagenes" src={superHeroe.img}></img></td>
                                         <td><a onClick={() => {loadEditar(superHeroe._id)}} className="btn btn-success">Editar</a>
                                             <a onClick={() => {loadEliminar(superHeroe._id)}} className="btn btn-danger">Eliminar</a>

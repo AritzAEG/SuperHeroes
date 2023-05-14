@@ -6,6 +6,12 @@ const CrearHeroes = () => {
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [img, setImg] = useState("");
+    const [int, setInt] = useState("");
+    const [str, setStr] = useState("");
+    const [dur, setDur] = useState("");
+    const [spe, setSpe] = useState("");
+    const [pow, setPow] = useState("");
+    const [com, setCom] = useState("");
     const [validation, setValidation] = useState(false);
     const navigate=useNavigate();
 
@@ -59,6 +65,55 @@ const CrearHeroes = () => {
                                             {img.length == 0 && validation && <span className="text-danger">Introduce la URL de la imagen</span>}
                                         </div>
                                     </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-groud">
+                                            <label>Inteligencia</label>
+                                            <input value={int} onMouseDown={e=>setValidation(true)} onChange={e=>setInt(e.target.value)} className="form-control"></input>
+                                            {int.length == 0 && validation && <span className="text-danger">Introduce la inteligencia del superHéroe</span>}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-groud">
+                                            <label>Fuerza</label>
+                                            <input value={str} onMouseDown={e=>setValidation(true)} onChange={e=>setStr(e.target.value)} className="form-control"></input>
+                                            {str.length == 0 && validation && <span className="text-danger">Introduce la fuerza del superHéroe</span>}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-groud">
+                                            <label>Durabilidad</label>
+                                            <input value={dur} onMouseDown={e=>setValidation(true)} onChange={e=>setDur(e.target.value)} className="form-control"></input>
+                                            {dur.length == 0 && validation && <span className="text-danger">Introduce la durabilidad del superHéroe</span>}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-groud">
+                                            <label>Velocidad</label>
+                                            <input value={spe} onMouseDown={e=>setValidation(true)} onChange={e=>setSpe(e.target.value)} className="form-control"></input>
+                                            {spe.length == 0 && validation && <span className="text-danger">Introduce la velocidad del superHéroe</span>}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-groud">
+                                            <label>Poder</label>
+                                            <input value={pow} onMouseDown={e=>setValidation(true)} onChange={e=>setPow(e.target.value)} className="form-control"></input>
+                                            {pow.length == 0 && validation && <span className="text-danger">Introduce el poder del superHéroe</span>}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-groud">
+                                            <label>Combate</label>
+                                            <input value={com} onMouseDown={e=>setValidation(true)} onChange={e=>setCom(e.target.value)} className="form-control"></input>
+                                            {com.length == 0 && validation && <span className="text-danger">Introduce el combate del superHéroe</span>}
+                                        </div>
+                                    </div>
+
                                     <div className="col-lg-12">
                                         <div className="form-groud">
                                             <button className="btn btn-success" type="submit">Guardar</button>
