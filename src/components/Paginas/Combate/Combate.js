@@ -117,7 +117,7 @@ function Combate () {
     <div className="">
       <h1>Combate de SuperHeroes</h1>
       <div class="col text-center">
-        <button class="btn btn-success regular-bottom ms-5" onClick={aleatorio}>Actualizar SuperHéroes</button> 
+        <button class="btn btn-success regular-bottom" onClick={aleatorio}>Actualizar SuperHéroes</button> 
         <button class="btn btn-success regular-bottom ms-5" onClick={insertarDatos}>Crear Combate</button> 
       </div>
             <div className="card">
