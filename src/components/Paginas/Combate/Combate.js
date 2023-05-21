@@ -21,7 +21,8 @@ function Combate () {
   let superHeroe2;
   let superHeroe1Datos;
   let superHeroe2Datos;
-
+  let mensajes = [];
+  let inicioCombate = false;
   
   function aleatorio()
   { 
@@ -36,80 +37,165 @@ function Combate () {
     setDatos([superHeroe1Datos, superHeroe2Datos])
   }
 
+  function prueba()
+  {
+    let reduce = datos.reduce((acumulator, currentValue) => acumulator + currentValue, 0);
+    console.log(reduce)
+  }
+
   function combate()
   {
-    let comienzo1;
-    let comienzo2;
-
-    let vida1;
-    let vida2;
-
-    let dado1D100;
-    let dado1D20;
-
-    let dañoNormal = 0;
-    let dañoCritico = 0;
+    datos[0].hp = datos[0].str * 10;
+    datos[1].hp = datos[1].str * 10;
+    let turno;
+    let mensaje;
+    let dado1D100 = 0;
+    let dado1D20 = 0;
+    let dado1D3 = 0;
+    let dado2D3 = 0;
+    let dado3D5 = 0;
+    let dado4D3 = 0;
+    let normalDamage = 0;
+    let criticalDamage = 0;
     let pifia = 0;
 
-    comienzo1 = datos[0].int + datos[0].com;
-    comienzo2 = datos[1].int + datos[1].com;
-
-    vida1 = datos[0].str * 10;
-    vida2 = datos[1].str * 10;
-
-    console.log("La vida de "+ datos[0].nombre +" es: "+ vida1 +" y la vida de "+ datos[1].nombre +" es: "+ vida2);
-    
-    if (comienzo1 > comienzo2) {
-    
-      dado1D100 = Math.floor((Math.random() * (100 - 1 + 1)) + 1);
-      
-      if (dado1D100 <= datos[0].com) // EXITO
-      {
-        console.log("Empieza atacando "+ datos[0].nombre)
-        dado1D20 = Math.floor((Math.random() * (20 - 1 + 1)) + 1);
-
-        if (dado1D20 >= 3 && dado1D20 <= 17) // DAÑO NORMAL
-        {
-          dañoNormal = (datos[0].pow + datos[0].str) * dado1D20 / 100;
-          vida2 -= dañoNormal;
-          console.log("Ataque con daño Normal: "+ dañoNormal +" "+ datos[1].nombre+ "tiene de vida: "+ vida2)
-        }
-        else if (dado1D20 >= 18 && dado1D20 <= 20) //DAÑO CRITICO
-        {
-          dañoCritico = (datos[0].int * datos[0].dur) / 100; 
-          vida2 = vida2 - dañoNormal - dañoCritico;
-        }
-        else if (dado1D20 >= 1 && dado1D20 <= 2) //PIFIA
-        {
-          pifia = datos[0].spe;
-        }
-      }
-      else 
-      {
-      
-      }
-    }
-    else 
+    if (datos[0].hp > 666)
     {
-      console.log("Empieza atacando "+ datos[1].nombre)
-      dado1D20 = Math.floor((Math.random() * (20 - 1 + 1)) + 1);
+      datos[0].hp = 666;
+    }
+    if (datos[1].hp > 666)
+    {
+      datos[1].hp = 666;
+    }
 
-      if (dado1D20 >= 3 && dado1D20 <= 17) // DAÑO NORMAL
-      {
-        dañoNormal = (datos[1].pow + datos[1].str) * dado1D20 / 100;
-        vida1 -= dañoNormal;
-        console.log("Ataque con daño Normal: "+ dañoNormal +" "+ datos[1].nombre+ "tiene de vida: "+ vida1)
+    if (datos[0].hp > datos[1].hp)
+    {
+      turno = 0;
+    }
+    else if (datos[1].hp > datos[0].hp)
+    {
+      turno = 1;
+    }
+    else
+    {
+      turno = 0;
+    }
+
+    while (datos[0].hp > 0 || datos[1].hp > 0)
+    {
+      if (turno == 0)
+      { 
+        mensaje = "Super Heroe "+ datos[0].nombre +" esta atacando";
+        mensajes.push(mensaje);
+        dado1D100 = Math.floor((Math.random() * (100 - 1 + 1)) + 1);
+        console.log(turno +" "+ dado1D100+ " "+ datos[0].com)
+        if (dado1D100 <= datos[0].com)
+        {
+          mensaje = "Ataque Existoso";
+          mensajes.push(mensaje);
+          dado1D20 =  Math.floor((Math.random() * (20 - 1 + 1)) + 1);
+          if (dado1D20 >= 3 && dado1D20 <= 17)
+          {
+            mensaje = "Daño Normal";
+            mensajes.push(mensaje);
+            normalDamage = Math.floor((1 + 2) * dado1D20 / 100);
+            if (normalDamage <= 0)
+            {
+              normalDamage = 1;
+            }
+            datos[1].hp -= normalDamage;
+            mensaje = "Le has hecho "+ normalDamage +" puntos de daño. "+ datos[1].nombre +" tiene de vida "+ datos[1].hp;
+            mensajes.push(mensaje);
+          }
+          else if (dado1D20 > 17)
+          {
+            if (dado1D20 == 18)
+            {
+              mensaje = "Daño Critico";
+              mensajes.push(mensaje);
+              dado1D3 = Math.floor((Math.random() * (3 - 1 + 1)) + 1);
+              //criticalDamage = (()) * dado1D3;
+              datos[1].hp -= criticalDamage;
+              mensaje = "Le has hecho "+ criticalDamage +" puntos de daño. "+ datos[1].nombre +" tiene de vida "+ datos[1].hp;
+              mensajes.push(mensaje);
+            }
+            else if (dado1D20 == 19)
+            {
+              mensaje = "Daño Critico";
+              mensajes.push(mensaje);
+              dado2D3 = Math.floor((Math.random() * (3 - 1 + 1)) + 1);
+              dado2D3 *= 2;
+              //criticalDamage = (()) * dado2D3;
+              datos[1].hp -= criticalDamage;
+              mensaje = "Le has hecho "+ criticalDamage +" puntos de daño. "+ datos[1].nombre +" tiene de vida "+ datos[1].hp;
+              mensajes.push(mensaje);
+            }
+            else if (dado1D20 == 20)
+            {
+              mensaje = "Daño Critico";
+              mensajes.push(mensaje);
+              dado3D5 = Math.floor((Math.random() * (5 - 1 + 1)) + 1);
+              dado3D5 *= 3;
+              //criticalDamage = (()) * dado3D5;
+              datos[1].hp -= criticalDamage;
+              mensaje = "Le has hecho "+ criticalDamage +" puntos de daño. "+ datos[1].nombre +" tiene de vida "+ datos[1].hp;
+              mensajes.push(mensaje);
+            }
+          }
+          else if (dado1D20 >= 1 || dado1D20 <= 2)
+          {
+            if (dado1D20 == 1)
+            {
+              mensaje = "Pifia";
+              mensajes.push(mensaje);
+              dado1D3 = Math.floor((Math.random() * (3 - 1 + 1)) + 1);
+              pifia = datos[0].spe / dado1D3;
+              datos[1].hp -= pifia;
+              mensaje = "Le has hecho "+ pifia +" puntos de daño. "+ datos[1].nombre +" tiene de vida "+ datos[1].hp;
+              mensajes.push(mensaje);
+            }
+            else if (dado1D20 == 2)
+            {
+              mensaje = "Pifia";
+              mensajes.push(mensaje);
+              dado4D3 = Math.floor((Math.random() * (3 - 1 + 1)) + 1);
+              dado4D3 *= 4;
+              pifia = datos[0].spe / dado4D3;
+              datos[1].hp -= pifia;
+              mensaje = "Le has hecho "+ pifia +" puntos de daño. "+ datos[1].nombre +" tiene de vida "+ datos[1].hp;
+              mensajes.push(mensaje);
+            }
+          }
+        }
+        else if (dado1D100 > 20)
+        {
+          mensaje = "Ataque Fallido";
+          mensajes.push(mensaje);
+          turno = 1;
+          console.log(turno)
+        }
       }
-      else if (dado1D20 >= 18 && dado1D20 <= 20) //DAÑO CRITICO
+      else if (turno == 1)
       {
-        dañoCritico = (datos[1].int * datos[1].dur) / 100; 
-        vida1 = vida1 - dañoNormal - dañoCritico;
+        mensaje = "Super Heroe "+ datos[1].nombre +" esta atacando";
+        console.log(mensaje);
+        mensajes.push(mensaje);
+        turno = 0;
       }
-      else if (dado1D20 >= 1 && dado1D20 <= 2) //PIFIA
-      {
-        pifia = datos[1].spe;
-      }
-    } 
+  }
+  
+
+    //Si no tienen vidas
+    if (datos[0].hp <= 0)
+    {
+      console.log("El Super Héroe "+ datos[1].nombre +" ha derrotado a "+ datos[0].nombre)
+    }
+    else if (datos[1].hp <= 0)
+    {
+      console.log("El Super Héroe "+ datos[0].nombre +" ha derrotado a "+ datos[1].nombre)
+    }
+
+    inicioCombate = true;
   }
 
   return(
@@ -145,7 +231,8 @@ function Combate () {
                         }
                         </tbody>
                       </table>
-                      <button onClick={combate}>Combate</button>
+                      <button className="btn btn-success regular-bottom" onClick={prueba}>Combate</button>
+                      
                   </div>
             </div>
         </div>
